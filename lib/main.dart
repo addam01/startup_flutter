@@ -4,6 +4,9 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
+/// MyApp is usual app
+/// Change to MyApp -> body to StatefulScreen to test the stateful widget
+/// Change to StatelessScreen to test the stateless widget
 void main() {
   runApp(const MyApp());
 }
@@ -33,6 +36,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       home: const RandomWords(),
+      // home: const StatefulScreen(),
     );
   }
 }
@@ -142,6 +146,54 @@ class _RandomWordsState extends State<RandomWords> {
           }
         });
       },
+    );
+  }
+}
+
+class StatefulScreen extends StatefulWidget {
+  const StatefulScreen({Key? key}) : super(key: key);
+
+  @override
+  _StatefulScreenState createState() => _StatefulScreenState();
+}
+class _StatefulScreenState extends State<StatefulScreen> {
+  String title = 'Original title';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title)
+      ),
+      body: Column(children: [
+        Text(title),
+        ElevatedButton(
+            child: const Text('Click'),
+            onPressed: () {
+              setState(() {
+                title = 'Changed title';
+              });
+            })
+      ]
+
+      ),
+    );
+  }
+}
+
+class StatelessScreen extends StatelessWidget {
+  const StatelessScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('LogRockets'),
+          backgroundColor: Colors.blueGrey[600],
+        ),
+        backgroundColor: Colors.white,
+        body: Container(),
+      ),
     );
   }
 }
