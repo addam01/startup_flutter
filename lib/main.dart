@@ -16,28 +16,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    //   title: 'Welcome to Flutter',
-    //   home: Scaffold(
-    //     appBar: AppBar(
-    //       title: const Text('Welcome to Flutter'),
-    //     ),
-    //     body:const Center(
-    //       child: RandomWords(), //Uses the Stateful widget at the bottom
-    //     ),
-    //   ),
-    // );
     return MaterialApp(
-      title: 'Startup Name Generator',
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-        )
+      title: 'Welcome to Flutter',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Welcome to Flutter Muthafuka'),
+        ),
+        body:const Center(
+          child: RandomWords(), //Uses the Stateful widget at the bottom
+        ),
       ),
-      home: const RandomWords(),
-      // home: const StatefulScreen(),
     );
+    // return MaterialApp(
+    //   title: 'Startup Name Generator',
+    //   theme: ThemeData(
+    //     appBarTheme: const AppBarTheme(
+    //       backgroundColor: Colors.white,
+    //       foregroundColor: Colors.black,
+    //     )
+    //   ),
+    //   home: const RandomWords(),
+    //   // home: const StatefulScreen(),
+    // );
   }
 }
 
@@ -52,16 +52,12 @@ class _RandomWordsState extends State<RandomWords> {
   final _suggestion = <WordPair>[];
   final _saved = <WordPair>{};
   final _biggerFont = const TextStyle(fontSize: 18);
-  // @override
-  // Widget build(BuildContext context) {
-  //   final wordPair = WordPair.random();
-  //   return Text(wordPair.asPascalCase);
-  // }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Startup Name Generator'),
+        title: const Text('Name Generator'),
         actions: [
           IconButton(
               onPressed: _pushSaved,
