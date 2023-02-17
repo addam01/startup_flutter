@@ -1,194 +1,116 @@
 // Copyright 2018 The Flutter team. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
 /// MyApp is usual app
 /// Change to MyApp -> body to StatefulScreen to test the stateful widget
 /// Change to StatelessScreen to test the stateless widget
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter Muthafuka'),
-        ),
-        body:const Center(
-          child: RandomWords(), //Uses the Stateful widget at the bottom
-        ),
-      ),
-    );
-    // return MaterialApp(
-    //   title: 'Startup Name Generator',
-    //   theme: ThemeData(
-    //     appBarTheme: const AppBarTheme(
-    //       backgroundColor: Colors.white,
-    //       foregroundColor: Colors.black,
-    //     )
-    //   ),
-    //   home: const RandomWords(),
-    //   // home: const StatefulScreen(),
-    // );
-  }
-}
+    //Title Section
+    Widget titleSection = Container(
+      padding: EdgeInsets.all(32),
+      child: Row(
+        children: [
+          /*1 Exanpded stretches the row to fit UI*/
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: const Text("Some Lake Playground"),
+              ),
 
-class RandomWords extends StatefulWidget {
-  const RandomWords({Key? key}) : super(key: key);
+              /*2*/
+              Text(
+                "Somewhere, Swizerland",
+                style: TextStyle(color: Colors.grey[500]),
+              )
+            ],
+          )),
 
-  @override
-  _RandomWordsState createState() => _RandomWordsState();
-}
-
-class _RandomWordsState extends State<RandomWords> {
-  final _suggestion = <WordPair>[];
-  final _saved = <WordPair>{};
-  final _biggerFont = const TextStyle(fontSize: 18);
-
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Name Generator'),
-        actions: [
-          IconButton(
-              onPressed: _pushSaved,
-              icon: const Icon(Icons.list),
-              tooltip: 'Saved Suggestions',
-          )
+          /*2*/
+          Icon(
+            Icons.star,
+            color: Colors.red[500],
+          ),
+          const Text("41")
         ],
       ),
-      body: _buildSuggestions(),
     );
-  }
 
-  //Using Navigator to move to another UI
-  void _pushSaved(){
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context){
-
-          final tiles = _saved.map(
-              (pair) {
-                return ListTile(
-                  title: Text(
-                    pair.asPascalCase,
-                    style: _biggerFont,
-                  ),
-                );
-              }
-          );
-
-          final divided = tiles.isNotEmpty ? ListTile.divideTiles(
-              context: context,
-              tiles: tiles,
-          ).toList() : <Widget>[];
-
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Saved Suggestions'),
+//ButtonCloumn
+    Column _buildButtonColumn(Color color, IconData icon, String label) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: color,
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: Text(
+              label,
+              style: TextStyle(
+                  fontSize: 12, fontWeight: FontWeight.w400, color: color),
             ),
-            body: ListView(children: divided,),
-          );
-        },
+          )
+        ],
+      );
+    }
+
+    Color color = Theme.of(context).primaryColor;
+
+    Widget buttonSection = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildButtonColumn(color, Icons.call, "CALL"),
+        _buildButtonColumn(color, Icons.near_me, "ROUTE"),
+        _buildButtonColumn(color, Icons.share, "SHARE")
+      ],
+    );
+
+    Widget textSection = const Padding(
+      padding: EdgeInsets.all(32),
+      child: Text(
+        'Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese '
+        'Alps. Situated 1,578 meters above sea level, it is one of the '
+        'larger Alpine Lakes. A gondola ride from Kandersteg, followed by a '
+        'half-hour walk through pastures and pine forest, leads you to the '
+        'lake, which warms to 20 degrees Celsius in the summer. Activities '
+        'enjoyed here include rowing, and riding the summer toboggan run.',
+        softWrap: true,
       ),
     );
-  }
 
-  Widget _buildSuggestions(){
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemBuilder: (context, i){
-        if(i.isOdd){
-          return const Divider();
-        }
-
-        final index = i ~/ 2;
-        if(index >= _suggestion.length){
-          _suggestion.addAll(generateWordPairs().take(10));
-        }
-        return _buildRow(_suggestion[index]);
-      },
-    );
-  }
-
-  Widget _buildRow(WordPair pair) {
-    final alreadySaved = _saved.contains(pair);
-    return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-      trailing: Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-        semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
-      ),
-      onTap: () {
-        setState(() {
-          if(alreadySaved){
-            _saved.remove(pair);
-          }
-          else{
-            _saved.add(pair);
-          }
-        });
-      },
-    );
-  }
-}
-
-class StatefulScreen extends StatefulWidget {
-  const StatefulScreen({Key? key}) : super(key: key);
-
-  @override
-  _StatefulScreenState createState() => _StatefulScreenState();
-}
-class _StatefulScreenState extends State<StatefulScreen> {
-  String title = 'Original title';
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title)
-      ),
-      body: Column(children: [
-        Text(title),
-        ElevatedButton(
-            child: const Text('Click'),
-            onPressed: () {
-              setState(() {
-                title = 'Changed title';
-              });
-            })
-      ]
-
-      ),
-    );
-  }
-}
-
-class StatelessScreen extends StatelessWidget {
-  const StatelessScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Flutter layout demo',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('LogRockets'),
-          backgroundColor: Colors.blueGrey[600],
+          title: const Text('Flutter layout demo'),
         ),
-        backgroundColor: Colors.white,
-        body: Container(),
+        body: ListView(
+          children: [
+            Image.asset(
+              'images/burn.jpg',
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,
+            ),
+            titleSection,
+            buttonSection,
+            textSection
+          ],
+        ),
       ),
     );
   }
