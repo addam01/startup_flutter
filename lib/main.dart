@@ -1,12 +1,14 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+// Format document : Shift + Option + F
 import 'package:flutter/material.dart';
+import 'package:startup_flutter/widgets/widget_selfstate.dart';
 
 /// MyApp is usual app
 /// Change to MyApp -> body to StatefulScreen to test the stateful widget
 /// Change to StatelessScreen to test the stateless widget
 void main() => runApp(const MyApp());
+
+final List<String> entries = <String>['A', 'B', 'C'];
+final List<int> colorCodes = <int>[600, 500, 100];
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -92,26 +94,36 @@ class MyApp extends StatelessWidget {
       ),
     );
 
+    // ignore: unused_local_variable
+    Widget bodyContent = ListView(
+      children: [
+        Image.asset(
+          'images/burn.jpg',
+          width: 600,
+          height: 240,
+          fit: BoxFit.cover,
+        ),
+        titleSection,
+        buttonSection,
+        textSection,
+      ],
+    );
+
     return MaterialApp(
       title: 'Flutter layout demo',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter layout demo'),
-        ),
-        body: ListView(
-          children: [
-            Image.asset(
-              'images/burn.jpg',
-              width: 600,
-              height: 240,
-              fit: BoxFit.cover,
-            ),
-            titleSection,
-            buttonSection,
-            textSection
-          ],
-        ),
-      ),
+          appBar: AppBar(
+            title: const Text('Flutter layout demo'),
+          ),
+          body: const SelfStateWidget(),
+      )
     );
   }
 }
+
+Widget constraintW = Center(
+  child: FittedBox(
+    child: Text(
+        'This is some very very very large text that is too big to fit a regular screen in a single line. Oh boy'),
+  ),
+);
