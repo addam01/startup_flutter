@@ -1,6 +1,7 @@
 // Format document : Shift + Option + F
 import 'package:flutter/material.dart';
 import 'package:startup_flutter/home/home.dart';
+import 'package:startup_flutter/name_list/name_list.dart';
 
 /// MyApp is usual app
 /// Change to MyApp -> body to StatefulScreen to test the stateful widget
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Home(),
+        '/names': (context) => NameList(),
       },
     );
   }

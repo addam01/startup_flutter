@@ -105,11 +105,23 @@ class _HomeState extends State<Home> {
       ],
     );
 
+    void gotoListName() {
+      Navigator.pushNamed(context, '/names');
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
       ),
-      body: SelfStateWidget(),
+      body: Column(
+        children: [
+          SelfStateWidget(),
+          const SizedBox(
+            height: 20,
+          ),
+          TextButton(onPressed: gotoListName, child: Text('Go To List Name'))
+        ],
+      ),
     );
   }
 }
