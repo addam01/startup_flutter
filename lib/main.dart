@@ -1,6 +1,7 @@
 // Format document : Shift + Option + F
 import 'package:flutter/material.dart';
 import 'package:startup_flutter/home/home.dart';
+import 'package:startup_flutter/login/login.dart';
 import 'package:startup_flutter/name_list/name_list.dart';
 
 /// MyApp is usual app
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Home(),
         '/names': (context) => NameList(),
+        '/login': (context) => Login(),
       },
     );
   }

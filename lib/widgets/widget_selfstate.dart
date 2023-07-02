@@ -26,6 +26,11 @@ class _SelfStateWidget extends State<SelfStateWidget> {
           padding: const EdgeInsets.all(8),
           child: TextField(
             onChanged: (value) => handleChange(value),
+            decoration: InputDecoration(
+                hintText: 'Type something...',
+                contentPadding: EdgeInsets.all(16),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(2))),
           ),
         ),
         Container(
