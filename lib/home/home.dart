@@ -46,6 +46,8 @@ class _HomeState extends State<Home> {
         onTap: () {
           if (label == loginName) {
             gotoLogin();
+          } else if (label == listName) {
+            gotoListName();
           }
         },
       );
